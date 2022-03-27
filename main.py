@@ -6,6 +6,7 @@ import requests
 import seaborn as sns
 from pprint import pprint
 import sys
+
 sns.set()
 from sklearn.cluster import KMeans
 
@@ -77,5 +78,4 @@ if __name__ == "__main__":
         pprint(json_data)
         json.dump(json_data, outfile)
 
-
-    plt.show()
+    # plt.show()
