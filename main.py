@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 import json
 import os
 import pandas as pd
@@ -50,7 +52,7 @@ def generate_json_result(results: list, key):
 
         jason.append(d)
 
-    return jason
+    return {"chargers" : jason}
 
 
 if __name__ == "__main__":
@@ -73,7 +75,7 @@ if __name__ == "__main__":
     centers = kmeans.cluster_centers_
     plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5)
 
-    with open(f'./server/results.json', 'w') as outfile:
+    with open(f'results.json', 'w') as outfile:
         json_data = generate_json_result(kmeans.cluster_centers_, "AIzaSyCZBeAuwbckVWoCaoPnaXXX6oDnwBWpq-g")
         pprint(json_data)
         json.dump(json_data, outfile)

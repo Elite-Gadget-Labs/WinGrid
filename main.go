@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
     "os/exec"
-
 	"github.com/gorilla/mux"
 )
 
@@ -39,9 +38,15 @@ func generate_new_chargers(w http.ResponseWriter, r *http.Request) {
 		num = val
 		fmt.Println("NUM recieved:", num)
 
-        args := []string{"main.py", num}
-        out, err := exec.Command("python", args...).CombinedOutput()
-        fmt.Println(string(out), err)
+//         args := []string{"../main.py", num}
+//         out, err := exec.Command("python3", args...).CombinedOutput()
+//         fmt.Println(string(out), err)
+        cmd := exec.Command("python3", "./main.py", num)
+        out, err := cmd.CombinedOutput()
+        if err != nil {
+            fmt.Println(err)
+        }
+        fmt.Println(string(out))
 
 		write200(w)
         http.ServeFile(w, r, "./results.json")
