@@ -72,5 +72,10 @@ if __name__ == "__main__":
     centers = kmeans.cluster_centers_
     plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5)
 
-    pprint(generate_json_result(kmeans.cluster_centers_, "AIzaSyCZBeAuwbckVWoCaoPnaXXX6oDnwBWpq-g"))
+    with open(f'./server/results.json', 'w') as outfile:
+        json_data = generate_json_result(kmeans.cluster_centers_, "AIzaSyCZBeAuwbckVWoCaoPnaXXX6oDnwBWpq-g")
+        pprint(json_data)
+        json.dump(json_data, outfile)
+
+
     plt.show()

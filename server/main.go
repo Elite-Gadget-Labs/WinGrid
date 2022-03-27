@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+    "os/exec"
 
 	"github.com/gorilla/mux"
 )
@@ -29,6 +30,7 @@ func write500(w http.ResponseWriter) {
 }
 
 func generate_new_chargers(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 
 	pathParams := mux.Vars(r)
 
@@ -36,17 +38,22 @@ func generate_new_chargers(w http.ResponseWriter, r *http.Request) {
 	if val, ok := pathParams["NUM"]; ok {
 		num = val
 		fmt.Println("NUM recieved:", num)
-		jsonData := []byte(`NUM recieved:` + num)
-		w.Write(jsonData)
+
+        args := []string{"main.py", num}
+        out, err := exec.Command("python", args...).CombinedOutput()
+        fmt.Println(string(out), err)
+
+		write200(w)
+        http.ServeFile(w, r, "./results.json")
 	}
-	write200(w)
+
 }
 
 //Routes the endpoints to their appropriate functions
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/check_server/", check_server).Methods(http.MethodGet)
+	r.HandleFunc("/", check_server).Methods(http.MethodGet)
 
 	r.HandleFunc("/generate_new_chargers/{NUM}", generate_new_chargers).Methods(http.MethodGet)
 
