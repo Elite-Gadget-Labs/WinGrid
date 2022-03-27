@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import requests
 import seaborn as sns
 from pprint import pprint
-
+import sys
 sns.set()
 from sklearn.cluster import KMeans
 
@@ -36,27 +36,26 @@ def get_all_nodes():
 def get_address_from_geocord(coordinates, key):
     coordinates = ",".join(map(str, coordinates.tolist()))
     url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={coordinates}&key={key}"
-    resp = requests.get(url).json()
+    resp = requests.get(url, timeout=10).json()["results"][0]["formatted_address"]
 
-    print(url)
+    pprint(resp)
     return resp
 
 
 def generate_json_result(results: list, key):
     jason = []
     for result in results:
-        jason.append({
-            "name": get_address_from_geocord(result, key),
-            "latitude": result[0],
-            "longitude": result[1]
-        })
+        d = {"name": get_address_from_geocord(result, key), "latitude": result[0], "longitude": result[1]}
+
+        jason.append(d)
+
+    return jason
 
 
 if __name__ == "__main__":
     # nodes = convert_string_nodes_to_float_nodes(get_nodes_from_json(city))
     nodes = convert_string_nodes_to_float_nodes(get_all_nodes())
-
-    kmeans = KMeans(20)
+    kmeans = KMeans(int(sys.argv[1]))
     x = pd.DataFrame(nodes)
     kmeans.fit(x)
     identified_clusters = kmeans.fit_predict(x)

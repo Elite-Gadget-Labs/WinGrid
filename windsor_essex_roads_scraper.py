@@ -49,7 +49,9 @@ def get_roads(area_code, file_name):
     if not os.path.isdir("roads"):
         os.mkdir("roads")
     with open(f'./roads/{file_name}.json', 'w') as outfile:
-        json.dump(json.dumps(json_dict), outfile)
+        json_data = json.dumps(json_dict)
+        json_without_slash = json.loads(json_data)
+        json.dump(json_without_slash, outfile)
 
 
 get_roads(LAKESHORE_AREA_CODE, "Lakeshore_Roads")

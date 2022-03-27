@@ -38,6 +38,5 @@ def get_all_key_locations():
     return list(set(key_locations))
 
 
-#all_key_locations = get_all_key_locations()
+# all_key_locations = get_all_key_locations()
 pprint(get_all_key_locations())
-
