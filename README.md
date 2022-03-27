@@ -3,6 +3,27 @@
 WinGrid was designed to be used by municipal staff or city planners to be able to get suggestions from an intelligent and evolving algorithm which strategically suggests locations for new
 electric vehicle chargers in the Windsor / Essex region. It is an entire Client-Server software solution which makes it easy to use and to get suggestions. We are quite proud of what we were able to accomplish during this short amount of time and appreciate you guys being here to check it out.
 
+## What We Were Able to Accomplish
+MVP:
+- [x] User Inputs
+- [x] Program Outputs
+- [x] Charger location
+- [x] User Interface
+
+Additional Functionality:
+- [ ] Different charger types (Extremely close to implementing)
+- [x] Detailed location output
+- [x] Zone consideration
+- [ ] Trip length consideration (Wasn't able to implement)
+- [x] Road quality
+- [x] Web-based application
+
+Advanced Functionality:
+- [x] Show charger location
+on map
+- [ ] Consider the location of
+existing chargers (Extremely close to implementing)
+
 ## Installation
 
 Our project consists of both an **Android Client App** (called WinGrid) and a Backend **Custom API Server** which is set up to be able to communicate and make suggestions to our front-end client.
