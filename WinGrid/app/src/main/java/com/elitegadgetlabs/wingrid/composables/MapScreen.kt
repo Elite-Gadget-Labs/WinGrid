@@ -58,7 +58,7 @@ fun MapScreen(navController: NavController, mainViewModel: MainViewModel) {
         var chargers: ChargerModel?
         runBlocking(Dispatchers.IO) {
             chargers = jsonAdapter.fromJson(
-                httpRequest("http://192.168.2.15:8000/generate_new_chargers/${vm.numNewChargers}")?.body?.source()!!
+                httpRequest("http://ec2-3-96-163-40.ca-central-1.compute.amazonaws.com:8000//generate_new_chargers/${vm.numNewChargers}")?.body?.source()!!
             )
         }
 
